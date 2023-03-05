@@ -1,4 +1,4 @@
-package com.example.databasesqlite.AppDataBase;
+package com.example.databasesqlite.appUtil;
 
 public class Pessoa {
 

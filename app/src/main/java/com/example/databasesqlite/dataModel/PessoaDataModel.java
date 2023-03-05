@@ -1,4 +1,4 @@
-package com.example.databasesqlite.DataModel;
+package com.example.databasesqlite.dataModel;
 
 public class PessoaDataModel {
 
@@ -21,7 +21,7 @@ public class PessoaDataModel {
             query += ID+" INTEGER PRIMARY KEY AUTOINCREMENT, ";
             query += NOME+" TEXT, ";
             query += IDADE+" TEXT, ";
-            query += CPF+" INTEGER ";
+            query += CPF+" INTEGER UNIQUE";
             query += ")";
 
         return query;

@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.databasesqlite.AppDataBase.DataBase;
-import com.example.databasesqlite.AppDataBase.Pessoa;
+import com.example.databasesqlite.appUtil.DataBase;
+import com.example.databasesqlite.appUtil.Pessoa;
+import com.example.databasesqlite.controller.PessoaController;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    PessoaController controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +22,8 @@ public class MainActivity extends AppCompatActivity {
         pessoa.setIdade("29");
         pessoa.setCpf("2905105");
 
-        DataBase base = new DataBase(this);
-
-        base.inserirPessoa(pessoa);
+        controller = new PessoaController(this);
+        controller.incluir(pessoa);
     }
 
 

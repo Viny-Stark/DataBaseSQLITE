@@ -1,4 +1,4 @@
-package com.example.databasesqlite.AppDataBase;
+package com.example.databasesqlite.appUtil;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,13 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
-import com.example.databasesqlite.DataModel.PessoaDataModel;
+import com.example.databasesqlite.dataModel.PessoaDataModel;
 
 public class DataBase extends SQLiteOpenHelper {
+
+    SQLiteDatabase db;
     public DataBase(Context context) {
         super(context, "banco", null, 1);
+
+        db = getWritableDatabase();
     }
 
     @Override
@@ -26,13 +28,8 @@ public class DataBase extends SQLiteOpenHelper {
 
             Log.d("Log_DataBase", "Tabela pessoa gerada com sucesso :"+ PessoaDataModel.criarTabela());
 
-
         } catch (SQLException e) {
-
-
             Log.d("Log_DataBase", "Tabela nao foi gerada");
-
-
         }
     }
 
@@ -43,17 +40,19 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL(sql_pessoas);
         onCreate(db);
     }
-    public void inserirPessoa(Pessoa pessoa){
+    public boolean insert(String tabela, ContentValues dados){
 
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues dados = new ContentValues();
+        boolean sucesso=true;
 
-        dados.put("nome",pessoa.getNome());
-        dados.put("idade",pessoa.getIdade());
-        dados.put("cpf",pessoa.getCpf());
+        try{
+            Log.d("Log_DataBase",tabela+"insert() executado com sucesso");
+            sucesso=db.insert(tabela,null,dados)>0;
 
-        db.insert("pessoa",null,dados);
-        db.close();
+        }catch (SQLException e){
+            Log.e("Log_DataBase",tabela+" falhou ao executar o insert" +e.getMessage());
+        }
+
+        return sucesso;
 
     }
 }
